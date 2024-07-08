@@ -1176,7 +1176,7 @@
         'base',
         'mediator',
         'runtime/client'
-    ], function( Base, Mediator, RuntimeClent ) {
+    ], function( Base, Mediator, RuntimeClient ) {
     
         var $ = Base.$;
     
@@ -1189,7 +1189,7 @@
                 return;
             }
     
-            RuntimeClent.call( this, 'DragAndDrop' );
+            RuntimeClient.call( this, 'DragAndDrop', true );
         }
     
         DragAndDrop.options = {
@@ -1197,7 +1197,7 @@
             disableGlobalDnd: false
         };
     
-        Base.inherits( RuntimeClent, {
+        Base.inherits( RuntimeClient, {
             constructor: DragAndDrop,
     
             init: function() {
