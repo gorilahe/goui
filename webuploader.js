@@ -1533,17 +1533,17 @@
         'base',
         'mediator',
         'runtime/client'
-    ], function( Base, Mediator, RuntimeClent ) {
+    ], function( Base, Mediator, RuntimeClient ) {
     
         var $ = Base.$;
     
         function FilePaste( opts ) {
             opts = this.options = $.extend({}, opts );
             opts.container = $( opts.container || document.body );
-            RuntimeClent.call( this, 'FilePaste' );
+            RuntimeClient.call( this, 'FilePaste', true );
         }
     
-        Base.inherits( RuntimeClent, {
+        Base.inherits( RuntimeClient, {
             constructor: FilePaste,
     
             init: function() {
