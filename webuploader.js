@@ -1801,10 +1801,10 @@
                     pos = button.offset();
     
                 width && height && shimContainer.css({
-                    bottom: 'auto',
-                    right: 'auto',
-                    width: width + 'px',
-                    height: height + 'px'
+                    bottom: 0,//'auto',
+                    right: 0//,'auto',
+                    //width: width + 'px',
+                    //height: height + 'px'
                 }).offset( pos );
             },
     
