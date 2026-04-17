@@ -7,6 +7,28 @@
  * AMD API 内部的简单不完全实现，请忽略。只有当WebUploader被合并成一个文件的时候才会引入。
  */
 (function( root, factory ) {
+    const jqtype = (function() {
+  const class2type = {};
+  const types = [
+    "Boolean", "Number", "String", "Function", "Array", 
+    "Date", "RegExp", "Object", "Error", "Symbol"
+  ];
+
+  types.forEach(name => {
+    class2type[`[object ${name}]`] = name.toLowerCase();
+  });
+
+  return function(obj) {
+    if (obj == null) {
+      return String(obj);
+    }
+
+    return typeof obj === "object" || typeof obj === "function"
+      ? class2type[Object.prototype.toString.call(obj)] || "object"
+      : typeof obj;
+  };
+})();
+    
     var modules = {},
 
         // 内部require, 简单不完全实现。
@@ -1234,7 +1256,7 @@
             }
     
             var length = obj.length,
-                type = $.type( obj );
+                type = jqtype( obj );
     
             if ( obj.nodeType === 1 && length ) {
                 return true;
