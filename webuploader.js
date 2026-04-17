@@ -7,27 +7,6 @@
  * AMD API 内部的简单不完全实现，请忽略。只有当WebUploader被合并成一个文件的时候才会引入。
  */
 (function( root, factory ) {
-    const jqtype = (function() {
-  const class2type = {};
-  const types = [
-    "Boolean", "Number", "String", "Function", "Array", 
-    "Date", "RegExp", "Object", "Error", "Symbol"
-  ];
-
-  types.forEach(name => {
-    class2type[`[object ${name}]`] = name.toLowerCase();
-  });
-
-  return function(obj) {
-    if (obj == null) {
-      return String(obj);
-    }
-
-    return typeof obj === "object" || typeof obj === "function"
-      ? class2type[Object.prototype.toString.call(obj)] || "object"
-      : typeof obj;
-  };
-})();
     
     var modules = {},
 
@@ -1243,7 +1222,29 @@
         'base',
         'uploader'
     ], function( Base, Uploader ) {
-    
+        function jqtype(obj) {
+  if (obj == null) {
+    return String(obj);
+  }
+
+  const class2type = {
+    "[object Boolean]": "boolean",
+    "[object Number]":  "number",
+    "[object String]":  "string",
+    "[object Function]": "function",
+    "[object Array]":   "array",
+    "[object Date]":    "date",
+    "[object RegExp]":  "regexp",
+    "[object Object]":  "object",
+    "[object Error]":   "error",
+    "[object Symbol]":  "symbol"
+  };
+
+  return typeof obj === "object" || typeof obj === "function"
+    ? class2type[Object.prototype.toString.call(obj)] || "object"
+    : typeof obj;
+}
+        
         var $ = Base.$,
             _init = Uploader.prototype._init,
             _destroy = Uploader.prototype.destroy,
