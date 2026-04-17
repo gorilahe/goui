@@ -129,7 +129,11 @@
     }
 })( window, function( window, define, require ) {
 
+function JQisFunction( obj ) {
 
+		return typeof obj === "function" && typeof obj.nodeType !== "number" &&
+			typeof obj.item !== "function";
+	};
     /**
      * @fileOverview jQuery or Zepto
      * @require "jquery"
@@ -873,11 +877,11 @@
                         Mediator.trigger.apply( this, arguments ) === false ||
     
                         // 调用opts.onEvent
-                        $.isFunction( opts[ name ] ) &&
+                        JQisFunction( opts[ name ] ) &&
                         opts[ name ].apply( this, args ) === false ||
     
                         // 调用this.onEvent
-                        $.isFunction( this[ name ] ) &&
+                        JQisFunction( this[ name ] ) &&
                         this[ name ].apply( this, args ) === false ||
     
                         // 广播所有uploader的事件。
@@ -1290,7 +1294,7 @@
     
                 // 如果无API响应声明则忽略
                 if ( !map || !(apiName in map) || !(map[ apiName ] in this) ||
-                        !$.isFunction( this[ map[ apiName ] ] ) ) {
+                        !JQisFunction( this[ map[ apiName ] ] ) ) {
     
                     return IGNORE;
                 }
